@@ -52,7 +52,7 @@ Request body example:
 {
   "name": "name",
   "password": "password"
-}
+}```
 
 The response will include a JWT token required for further requests.
 
