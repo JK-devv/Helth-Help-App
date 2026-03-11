@@ -1,46 +1,87 @@
-### This is a Health & Help application built using HATEOAS principles
 
-The entry point is : /**start**
+# Health & Help Application
 
-Authentication implemented via jwt token
+Health & Help is a RESTful backend application built with **Spring Boot** following **HATEOAS principles**.  
+The API provides hypermedia-driven navigation where available actions depend on the user's role and authentication token.
 
-#### Flow:
-The entry point to the API is /**start**, and the application returns HAL JSON, which includes hypermedia. The available links depend on the user's role and access token
+---
 
-#### How to use:
-- run in terminal command `docker compose up -d` - for building database
-- run app
-- get token from /**login** endpoint and after all request will be available for you with token
+## Authentication
+
+Authentication is implemented using **JWT tokens**.
+
+Workflow:
+
+1. Authenticate via the `/login` endpoint
+2. Receive a JWT token
+3. Use the token in subsequent API requests
+
+---
+
+## API Entry Point
+
+The API entry point is:
+/start
+
+
+The application returns **HAL JSON responses**, which include hypermedia links to available resources depending on the user's role and permissions.
+
+---
+
+## Running the Application
+
+### 1. Start the database
+docker compose up -d
+
+
+This command will start the PostgreSQL database container.
+
+### 2. Run the application
+
+Start the Spring Boot application from your IDE or using Maven/Gradle.
+
+### 3. Authenticate
+
+Send a request to:
+POST /login
+
+
+Request body example:
+
+```json
+{
+  "name": "name",
+  "password": "password"
+}
+
+The response will include a JWT token required for further requests.
 
 #### Users:
 There is only 2 users with roles :
 - MANAGER
 - DOCTOR
 
-#### Available endpoints:
+Available API endpoints depend on the authenticated user's role.
 
-- GET: /start
-- GET: /stock
-- POST: /login - RequestBody:
+API Endpoints
+General
 
-`{
-  "name" : "name",
-  "password" : "password"
-  }`
+GET /start
+GET /stock
+POST /login
+GET /item/{item-id}
 
-- GET: /item/{item-id}
+DOCTOR Endpoints
 
-#### For DOCTOR :
+GET /list-of-patients
+GET /patient/{patient-id}
+POST /patient
 
-- GET: /list-of-patients
-- GET: /patient/{patient-id}
-- POST: /patient
+MANAGER Endpoints
 
-#### For MANAGER:
-
-- GET: /list-of-food
-- GET: /food/{food-id}
-- POST: /food
+GET /list-of-food
+GET /food/{food-id}
+POST /food
 
 #### Technologies:
 - java20
@@ -50,5 +91,4 @@ There is only 2 users with roles :
 - PostgresDb
 - Docker
 - HATEOAS
-- Junit5# Helth-Help-App
-# Helth-Help-App
+- Junit5
